@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.15.14/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui@2.15.14/lib/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <style>
+        body {
+            font-family: "PingFang SC";
+        }
+
+        .el-row {
+            margin-bottom: 5px;
+        }
+
+        .block-row {
+            height: 180px;
+        }
+        .block-row-3 {
+            height: 120px;
+        }
+
+        .el-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .el-col {
+            border-radius: 4px;
+        }
+
+        .grid-content {
+            border-radius: 4px;
+            min-height: 36px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .centered-content {
+    display: flex;
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+}
+
+        .bg-header {
+            background: #99a9bf;
+        }
+
+        .bg-primary {
+            background: #d3dce6;
+        }
+
+        .bg-secondary {
+            background: #e5e9f2;
+        }
+
+        h2,
+        p {
+            margin: 0;
+        }
+
+        p {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <el-row>
+            <el-col :span="24">
+                <div class="grid-content bg-header">
+                    <h2 style="color: #F8FAFA">Demo</h2>
+                </div>
+            </el-col>
+        </el-row>
+
+        <el-row >
+            <el-col :span =24>
+        <el-collapse accordion>
+            <el-collapse-item>
+                
+              <template slot="title">
+                <div class="centered-content">
+                <a style="color: #404040; font-size: 15px; font-weight: 800; ">选择其他日期</a> &nbsp; <i class="header-icon el-icon-date"></i>
+            </div>
+            </template>
+            
+              <el-calendar v-model="value">
+            </el-calendar>
+            </el-col>
+            </el-row>
+
+        <el-row :gutter="10">
+            <el-col :span="12">
+                <div class="grid-content bg-primary block-row">
+                    <el-badge :value="200" :max="99" class="item">
+                    <p style="color: #707070; font-size: 15px; font-weight: 700;">门前流量</p>
+                </el-badge>
+                    <p style="color: #404040; font-size: 40px; font-weight: 900;">1024
+                        <a style="color: #707070; font-size: 20px; font-weight: 700;">人</a>
+                    </p>
+                    <el-tag >平均逗留25.8秒</el-tag>
+                </div>
+            </el-col>
+            <el-col :span="12">
+                <div class="grid-content bg-secondary block-row">
+                    <el-badge :value="47" :max="99" class="item">
+                    <p style="color: #707070; font-size: 15px; font-weight: 700;">橱窗观看</p>
+                </el-badge>
+                    <p style="color: #404040; font-size: 40px; font-weight: 900;">512
+                        <a style="color: #707070; font-size: 20px; font-weight: 700;">人</a>
+                    </p>
+                    <el-tag >平均观看12.7秒</el-tag>
+                </div>
+            </el-col>
+        </el-row>
+
+<el-row :gutter = "10">
+    <el-col :span="8" >
+      <div class="grid-content bg-secondary block-row-3">
+        <el-badge :value="35" :max="99" class="item">
+        <p style="color: #606266; font-size: 10px; font-weight: 700; ">进店数</p>
+    </el-badge>
+        <p style="color: #303133; font-size: 40px; font-weight: 900; ">256
+            <a style="color: #606266; font-size: 20px; font-weight: 700; ">人</a>
+        </p>
+       
+      </div>
+  </el-col>
+    <el-col :span="8" >
+        <div class="grid-content bg-primary block-row-3">
+          <p style="color: #606266; font-size: 10px; font-weight: 700; ">店内平均停留<i class="el-icon-bottom-right" style="color: rgb(13, 199, 31)"> </i></p>
+          <p style="color: #303133; font-size: 40px; font-weight: 900;">14.3
+            <a style="color: #606266; font-size: 20px; font-weight: 700;">分</a>
+        </p>
+        </div>
+    </el-col>
+    <el-col :span="8" >
+        <div class="grid-content bg-secondary block-row-3">
+          <p style="color: #606266; font-size: 10px; font-weight: 700; ">进店率<i class="el-icon-top-right" style="color: red"> </i></p>
+          <p style="color: #303133; font-size: 30px; font-weight: 900;">50<a style="color: #606266; font-size: 10px; font-weight: 700;">%</a>
+            <br>
+            <el-progress :percentage="50" :show-text="false" status="success"></el-progress>
+        </p>
+        </div>
+    </el-col>
+</el-row>
+
+
+
+<el-row :gutter="10">
+    <el-col :span="24">
+        <div id="chart" class="grid-content block-row"></div>
+    </el-col>
+</el-row>
+
+<el-row :gutter = "10">
+  <el-col :span="12" >
+    <div class="grid-content bg-primary block-row">
+        <el-badge :value="12" :max="99" class="item">
+      <p style="color: #606266; font-size: 10px; font-weight: 700; ">消费人数</p>
+    </el-badge>
+      <p style="color: #303133; font-size: 40px; font-weight: 900;">128
+        <a style="color: #606266; font-size: 20px; font-weight: 700;">人</a>
+    </p>
+
+    </div>
+</el-col>
+  <el-col :span="12" >
+      <div class="grid-content bg-secondary block-row">
+        <el-badge :value="12" :max="99" class="item">
+        <p style="color: #606266; font-size: 10px; font-weight: 700; ">多次入店</p>
+    </el-badge>
+        <p style="color: #303133; font-size: 40px; font-weight: 900;">64
+            <a style="color: #606266; font-size: 20px; font-weight: 700;">人</a>
+        </p>
+        <el-button type="text">看看谁是你的常客<i class="el-icon-arrow-right"></i></el-button>
+      </div>
+  </el-col>
+</el-row>
+
+<el-row :gutter = "10">
+    <el-col :span="8" ><el-button type="primary">流式直播</el-button></el-col>
+    <el-col :span="8" ><el-button type="success">AI明日预测</el-button></el-col>
+    <el-col :span="8" ><el-button type="danger">账目信息</el-button></el-col>
+  </el-row>
+
+    </div>
+    <script>
+
+
+new Vue({
+            el: '#app',
+            data() {
+    return {
+        value: new Date()
+    };
+},
+            mounted: function(){
+              var chartDom = document.getElementById('chart');  
+              var myChart = echarts.init(chartDom);
+              var option;
+
+option = {
+  color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
+  title: {
+    text: ''
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'cross',
+      label: {
+        backgroundColor: '#6a7985'
+      }
+    }
+  },
+  legend: {
+    data: ['门前流量', '橱窗观看', '进店人数', '消费人数']
+  },
+  toolbox: {
+    feature: {
+      saveAsImage: {}
+    }
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: [
+    {
+      type: 'category',
+      boundaryGap: false,
+      axisTick: {
+            show: false  // 隐藏x轴刻度线
+        },
+      data: ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00']
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value',
+      axisLabel: {
+        show: false
+      },
+      splitLine: {
+        show: false
+      }
+    }
+  ],
+  series: [
+    {
+      name: '门前流量',
+      type: 'line',
+      smooth: true,
+      lineStyle: {
+        width: 0
+      },
+      showSymbol: false,
+      areaStyle: {
+        opacity: 0.8,
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          {
+            offset: 0,
+            color: 'rgb(128, 255, 165)'
+          },
+          {
+            offset: 1,
+            color: 'rgb(1, 191, 236)'
+          }
+        ])
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: [140, 232, 101, 264, 90, 340, 250]
+    },
+    {
+      name: '橱窗观看',
+      type: 'line',
+      smooth: true,
+      lineStyle: {
+        width: 0
+      },
+      showSymbol: false,
+      areaStyle: {
+        opacity: 0.8,
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          {
+            offset: 0,
+            color: 'rgb(0, 221, 255)'
+          },
+          {
+            offset: 1,
+            color: 'rgb(77, 119, 255)'
+          }
+        ])
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: [70, 215, 155, 134, 45, 170, 50]
+    },
+    {
+      name: '进店人数',
+      type: 'line',
+      smooth: true,
+      lineStyle: {
+        width: 0
+      },
+      showSymbol: false,
+      areaStyle: {
+        opacity: 0.8,
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          {
+            offset: 0,
+            color: 'rgb(55, 162, 255)'
+          },
+          {
+            offset: 1,
+            color: 'rgb(116, 21, 219)'
+          }
+        ])
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: [45, 100, 70, 40, 20, 80, 25]
+    },
+    {
+      name: '消费人数',
+      type: 'line',
+      smooth: true,
+      lineStyle: {
+        width: 0
+      },
+      showSymbol: false,
+      areaStyle: {
+        opacity: 0.8,
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          {
+            offset: 0,
+            color: 'rgb(255, 0, 135)'
+          },
+          {
+            offset: 1,
+            color: 'rgb(135, 0, 157)'
+          }
+        ])
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: [20, 50, 35, 20, 10, 40, 12]
+    }
+  ]
+};
+
+option && myChart.setOption(option);
+
+            }
+
+        });
+    </script>
+</body>
+
+</html>
