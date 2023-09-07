@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/element-ui@2.15.14/lib/theme-chalk/index.css">
+  <script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+  <script src="https://unpkg.com/element-ui@2.15.14/lib/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <style>
+    body {
+      font-family: "PingFang SC";
+    }
+
+    .el-row {
+      margin-bottom: 5px;
+    }
+
+    .block-row-1 {
+      height: 60vw;
+    }
+
+    .block-row {
+      height: 48vw;
+    }
+
+    .block-row-3 {
+      height: 30vw;
+    }
+
+    .el-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .el-col {
+      border-radius: 4px;
+    }
+
+    .grid-content {
+      border-radius: 4px;
+      min-height: 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .grid-content-gpt {
+      border-radius: 4px;
+      min-height: 36px;
+      display: flex;
+      flex-direction: column;
+      /* align-items: left; */
+      /* justify-content: center; */
+    }
+
+    .centered-content {
+      display: flex;
+      align-items: center;
+      /* 垂直居中 */
+      justify-content: center;
+      /* 水平居中 */
+    }
+
+    .bg-header {
+      background: #99a9bf;
+    }
+
+    .bg-primary {
+      background: #d3dce6;
+    }
+
+    .bg-secondary {
+      background: #e5e9f2;
+    }
+
+    h2,
+    p {
+      margin: 0;
+    }
+
+    p {
+      margin-top: 5px;
+    }
+
+    /* .el-carousel__item h3 {
+    color: #475669;
+    font-size: 14px;
+    opacity: 0.75;
+    line-height: 150px;
+    margin: 0;
+  }
+
+  .el-carousel__item:nth-child(2n) {
+     background-color: #99a9bf;
+  } */
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <el-row>
+      <el-col :span="24">
+        <div class="grid-content bg-header">
+          <h2 style="color: #F8FAFA">Demo</h2>
+        </div>
+      </el-col>
+    </el-row>
+
+    <el-row>
+      <el-col :span=24>
+        <el-collapse accordion>
+          <el-collapse-item>
+
+            <template slot="title">
+              <div class="centered-content">
+                <a style="color: #404040; font-size: 15px; font-weight: 800; ">选择其他日期</a> &nbsp; <i
+                  class="header-icon el-icon-date"></i>
+              </div>
+            </template>
+
+            <el-calendar v-model="value">
+            </el-calendar>
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="10">
+      <el-col :span="12">
+        <div class="grid-content bg-primary block-row">
+          <el-badge :value="200" :max="99" class="item">
+            <p style="color: #707070; font-size: 15px; font-weight: 700;">门前流量</p>
+          </el-badge>
+          <p style="color: #404040; font-size: 40px; font-weight: 900;">1024
+            <a style="color: #707070; font-size: 20px; font-weight: 700;">人</a>
+          </p>
+          <el-tag>平均逗留25.8秒</el-tag>
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div class="grid-content bg-secondary block-row">
+          <el-badge :value="47" :max="99" class="item">
+            <p style="color: #707070; font-size: 15px; font-weight: 700;">橱窗观看</p>
+          </el-badge>
+          <p style="color: #404040; font-size: 40px; font-weight: 900;">512
+            <a style="color: #707070; font-size: 20px; font-weight: 700;">人</a>
+          </p>
+          <el-tag>平均观看12.7秒</el-tag>
+        </div>
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="10">
+      <el-col :span="8">
+        <div class="grid-content bg-secondary block-row-3">
+          <el-badge :value="35" :max="99" class="item">
+            <p style="color: #606266; font-size: 10px; font-weight: 700; ">进店数</p>
+          </el-badge>
+          <p style="color: #303133; font-size: 40px; font-weight: 900; ">256
+            <a style="color: #606266; font-size: 20px; font-weight: 700; ">人</a>
+          </p>
+
+        </div>
+      </el-col>
+      <el-col :span="8">
+        <div class="grid-content bg-primary block-row-3">
+          <p style="color: #606266; font-size: 10px; font-weight: 700; ">店内平均停留<i class="el-icon-bottom-right"
+              style="color: rgb(13, 199, 31)"> </i></p>
+          <p style="color: #303133; font-size: 40px; font-weight: 900;">14.3
+            <a style="color: #606266; font-size: 20px; font-weight: 700;">分</a>
+          </p>
+        </div>
+      </el-col>
+      <el-col :span="8">
+        <div class="grid-content bg-secondary block-row-3">
+          <p style="color: #606266; font-size: 10px; font-weight: 700; ">进店率<i class="el-icon-top-right"
+              style="color: red"> </i></p>
+          <p style="color: #303133; font-size: 30px; font-weight: 900;">50<a
+              style="color: #606266; font-size: 10px; font-weight: 700;">%</a>
+            <br>
+            <el-progress :percentage="50" :show-text="false" status="success"></el-progress>
+          </p>
+        </div>
+      </el-col>
+    </el-row>
+
+
+
+    <el-row :gutter="10">
+      <el-col :span="24">
+        <div id="chart" class="grid-content block-row-1"></div>
+      </el-col>
+    </el-row>
+
+
+
+    <el-row :gutter="10">
+      <el-col :span="12">
+        <div class="grid-content bg-primary block-row">
+          <el-badge :value="12" :max="99" class="item">
+            <p style="color: #606266; font-size: 10px; font-weight: 700; ">消费人数</p>
+          </el-badge>
+          <p style="color: #303133; font-size: 40px; font-weight: 900;">128
+            <a style="color: #606266; font-size: 20px; font-weight: 700;">人</a>
+          </p>
+
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div class="grid-content bg-secondary block-row">
+          <el-badge :value="12" :max="99" class="item">
+            <p style="color: #606266; font-size: 10px; font-weight: 700; ">多次入店</p>
+          </el-badge>
+          <p style="color: #303133; font-size: 40px; font-weight: 900;">64
+            <a style="color: #606266; font-size: 20px; font-weight: 700;">人</a>
+          </p>
+          <el-button type="text">看看谁是你的常客<i class="el-icon-arrow-right"></i></el-button>
+        </div>
+      </el-col>
+    </el-row>
+
+
+    <el-row :gutter="10">
+      <el-col :span="12">
+        <div class="block-row">
+          <div class="grid-content bg-secondary  block-row">
+            <p style="color: #606266; font-size: 10px; font-weight: 700; ">性别比例</p>
+            <p style="color: #303133; font-size: 40px; font-weight: 900;">3:4
+              <el-progress :percentage="42" :show-text="false" define-back-color="pink"></el-progress>
+            </p>
+          </div>
+        </div>
+      </el-col>
+
+      <el-col :span="12">
+
+        <div id="chart2" class="grid-content block-row bg-primary ">
+        </div>
+      </el-col>
+    </el-row>
+
+    <el-row>
+      <el-col :spam="24">
+        <el-collapse v-model="activeNames" @change="handleChange">
+          <el-collapse-item title="AI数据分析 2023年9月7日" name="1">
+            <div>
+              <h3>店铺数据分析报告</h3>
+              <p><strong>日期</strong>：2023年9月7日</p>
+              <hr>
+              <h3>1. 概况</h3>
+              <ul>
+                <li><strong>总人流量</strong>：1500人</li>
+                <li><strong>橱窗观看人数</strong>：900人</li>
+                <li><strong>平均观看时长</strong>：3分钟</li>
+                <li><strong>进店人数</strong>：450人</li>
+                <li><strong>回头客人数</strong>：80人</li>
+                <li><strong>成单人数</strong>：120人</li>
+              </ul>
+              <hr>
+              <h3>2. 橱窗效应</h3>
+              <ul>
+                <li><strong>观看橱窗与进店的转化率</strong>：50%</li>
+                <li><strong>观看橱窗的平均时长与进店关系</strong>：观看超过4分钟的顾客，进店概率提高至65%。</li>
+              </ul>
+              <p><strong>分析</strong>：<br>橱窗展示具有很好的吸引力，特别是对于那些观看时长超过4分钟的顾客。这说明橱窗的展示内容或商品较为吸引人。</p>
+              <hr>
+              <h3>3. 进店体验</h3>
+              <ul>
+                <li><strong>平均停留时间</strong>：18分钟</li>
+                <li><strong>进店与成单转化率</strong>：26.7%</li>
+                <li><strong>回头客与成单转化率</strong>：60%</li>
+              </ul>
+              <p><strong>分析</strong>：<br>虽然每四位进店的顾客中有一位会成单，但回头客的成单率远高于一般顾客，这说明店铺的商品或服务质量得到了部分顾客的认可。</p>
+              <hr>
+              <h3>4. 顾客画像</h3>
+              <ul>
+                <li><strong>男女比例</strong>：男性800人 (53.3%), 女性700人 (46.7%)</li>
+                <li><strong>最高成单性别</strong>：女性，成单率为30%</li>
+                <li><strong>年龄分布</strong>：18-24岁 (35%), 25-34岁 (40%), 35岁以上 (25%)</li>
+                <li><strong>最高成单年龄段</strong>：25-34岁，成单率为32%</li>
+              </ul>
+              <p><strong>分析</strong>：<br>虽然男性顾客数量略多，但女性的成单率显著高于男性。中青年顾客（25-34岁）的成单率也最高，这可能与店铺的商品种类或风格有关。</p>
+              <hr>
+              <h3>5. 时间段分析</h3>
+              <ul>
+                <li><strong>早上 (9:00-11:00)</strong>：进店80人，成单20人，成单率25%</li>
+                <li><strong>中午 (11:00-13:00)</strong>：进店100人，成单18人，成单率18%</li>
+                <li><strong>下午 (14:00-16:00)</strong>：进店200人，成单60人，成单率30%</li>
+                <li><strong>晚上 (16:00-18:00)</strong>：进店70人，成单22人，成单率31%</li>
+              </ul>
+              <p><strong>分析</strong>：<br>下午时段店铺的人流量最大，并且成单率也相对较高，这是店铺的高峰时段。</p>
+              <hr>
+              <h3>6. 顾客的再次光临率</h3>
+              <ul>
+                <li><strong>回头客占总进店人数的比例</strong>：17.8%</li>
+                <li><strong>回头客的成单率</strong>：60%</li>
+                <li><strong>首次访问顾客的成单率</strong>：20%</li>
+              </ul>
+              <p><strong>分析</strong>：<br>回头客的成单率远高于首次访问的顾客，这说明已有的客户对店铺非常满意，有很高的忠诚度。</p>
+              <hr>
+              <h3>7. 建议</h3>
+              <ol>
+                <li><strong>针对橱窗</strong>：考虑定期更换橱窗展示商品，增加新鲜感，继续吸引顾客进店。</li>
+                <li><strong>提高服务质量</strong>：鉴于回头客的高成单率，提高服务质量有助于将首次顾客转化为回头客。</li>
+                <li><strong>女性和中青年市场</strong>：考虑增加针对女性和25-34岁年龄段的商品或服务，或者进行相应的促销活动。</li>
+                <li><strong>下午时段</strong>：加强下午时段的人手，确保服务质量，也可以考虑在这个时段推出限时折扣或活动来进一步提高成单率。</li>
+              </ol>
+              <hr>
+            </div>
+          </el-collapse-item>
+          <el-collapse-item title="AI数据分析 30日" name="2">
+            <div>
+              <p><strong>日期范围</strong>：2023年8月7日 至 2023年9月5日</p>
+              <hr>
+              <h3>1. 概况</h3>
+              <ul>
+                <li><strong>30天总人流量</strong>：45,000人</li>
+                <li><strong>橱窗观看人数</strong>：27,000人</li>
+                <li><strong>平均每日观看时长</strong>：3.2分钟</li>
+                <li><strong>总进店人数</strong>：13,500人</li>
+                <li><strong>总回头客人数</strong>：2,400人</li>
+                <li><strong>总成单人数</strong>：3,600人</li>
+              </ul>
+              <hr>
+              <h3>2. 橱窗效应</h3>
+              <ul>
+                <li><strong>30天平均每日观看转进店率</strong>：50.3%</li>
+                <li><strong>观看橱窗的平均时长与进店关系</strong>：观看超过4分钟的顾客，进店概率提高至66%。</li>
+              </ul>
+              <p><strong>分析</strong>：<br>在整个月中，橱窗的吸引力持续稳定，这为店铺带来了稳定的潜在客户流。</p>
+              <hr>
+              <h3>3. 进店体验</h3>
+              <ul>
+                <li><strong>30天平均每日停留时间</strong>：18.5分钟</li>
+                <li><strong>平均每日成单转化率</strong>：26.8%</li>
+                <li><strong>回头客的平均每日成单率</strong>：62%</li>
+              </ul>
+              <p><strong>分析</strong>：<br>整体上，回头客的成单率仍然持续领先，而且有轻微的上升趋势。</p>
+              <hr>
+              <h3>4. 顾客画像</h3>
+              <ul>
+                <li><strong>男女比例</strong>：男性24,150人 (53.7%), 女性20,850人 (46.3%)</li>
+                <li><strong>30天平均每日最高成单性别</strong>：女性，成单率为30.5%</li>
+                <li><strong>年龄分布</strong>：18-24岁 (34%), 25-34岁 (42%), 35岁以上 (24%)</li>
+                <li><strong>最高成单年龄段</strong>：25-34岁，成单率为33%</li>
+              </ul>
+              <p><strong>分析</strong>：<br>月度数据显示，中青年顾客段的比重略有上升，这对于销售策略和商品定位提供了明确的方向。</p>
+              <hr>
+              <h3>5. 时间段分析</h3>
+              <ul>
+                <li><strong>早上 (9:00-11:00)</strong>：平均每日进店240人，成单60人，成单率25%</li>
+                <li><strong>中午 (11:00-13:00)</strong>：平均每日进店300人，成单54人，成单率18%</li>
+                <li><strong>下午 (14:00-16:00)</strong>：平均每日进店600人，成单180人，成单率30%</li>
+                <li><strong>晚上 (16:00-18:00)</strong>：平均每日进店210人，成单66人，成单率31.5%</li>
+              </ul>
+              <p><strong>分析</strong>：<br>整个月中，下午时段依然是店铺的高峰时段，这提供了进行时段限定促销活动的可能性。</p>
+              <hr>
+              <h3>6. 顾客的再次光临率</h3>
+              <ul>
+                <li><strong>回头客占总进店人数的比例</strong>：17.8%</li>
+                <li><strong>回头客的平均每日成单率</strong>：62%</li>
+                <li><strong>首次访问顾客的平均每日成单率</strong>：24%</li>
+              </ul>
+              <p><strong>分析</strong>：<br>整体上，忠诚顾客群体稳定，对店铺业绩有着稳定的推动作用。</p>
+              <hr>
+              <h3>7. 建议</h3>
+              <ol>
+                <li><strong>针对橱窗</strong>：考虑适时更新橱窗设计，吸引更多的新客户。</li>
+                <li><strong>提高服务质量</strong>：为了将更多新客转化为忠诚顾客，需要进一步提高服务体验。</li>
+                <li><strong>女性和中青年市场</strong>：调整或扩大针对女性及25-34岁年龄段的商品种类或服务。</li>
+                <li><strong>下午时段优化</strong>：考虑在下午高峰时段引入更多的促销活动或者服务优化。</li>
+              </ol>
+              <hr>
+              <p>这个月度分析报告展现了店铺的整体运营状况，并为下一步的决策提供了数据支撑。希望它能帮助您进行更有效的管理和策略调整。</p>
+            </div>
+          </el-collapse-item>
+          <el-collapse-item title="以上分析基于虚拟数据,仅作展示">
+            <p>
+              以上AI报告不全面展示,具体分析结合真实数据和详细信息(商铺地段,经营内容等)生成
+            </p>
+          </el-collapse-item>
+        </el-collapse>
+      </el-col>
+    </el-row>
+
+
+    <el-row :gutter="10">
+      <el-col :span="8"><el-button type="primary" size="">流式直播</el-button></el-col>
+      <el-col :span="8"><el-button type="success" size="">AI明日预测</el-button></el-col>
+      <el-col :span="8"><el-button type="danger" size="">账目信息</el-button></el-col>
+    </el-row>
+  </div>
+  <script>
+
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          value: new Date(),
+          myChart2: null
+        };
+      },
+      mounted: function () {
+        // Chart 1 initialization
+        var chartDom = document.getElementById('chart');
+        var myChart = echarts.init(chartDom);
+        var option = {
+          color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
+          title: {
+            text: ''
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'cross',
+              label: {
+                backgroundColor: '#6a7985'
+              }
+            }
+          },
+          legend: {
+            data: ['门前流量', '橱窗观看', '进店人数', '消费人数']
+          },
+          toolbox: {
+            feature: {
+              saveAsImage: {}
+            }
+          },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+          },
+          xAxis: [
+            {
+              type: 'category',
+              boundaryGap: false,
+              axisTick: {
+                show: false  // 隐藏x轴刻度线
+              },
+              data: ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00']
+            }
+          ],
+          yAxis: [
+            {
+              type: 'value',
+              axisLabel: {
+                show: false
+              },
+              splitLine: {
+                show: false
+              }
+            }
+          ],
+          series: [
+            {
+              name: '门前流量',
+              type: 'line',
+              smooth: true,
+              lineStyle: {
+                width: 0
+              },
+              showSymbol: false,
+              areaStyle: {
+                opacity: 0.8,
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: 'rgb(128, 255, 165)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgb(1, 191, 236)'
+                  }
+                ])
+              },
+              emphasis: {
+                focus: 'series'
+              },
+              data: [140, 232, 101, 264, 90, 340, 250]
+            },
+            {
+              name: '橱窗观看',
+              type: 'line',
+              smooth: true,
+              lineStyle: {
+                width: 0
+              },
+              showSymbol: false,
+              areaStyle: {
+                opacity: 0.8,
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: 'rgb(0, 221, 255)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgb(77, 119, 255)'
+                  }
+                ])
+              },
+              emphasis: {
+                focus: 'series'
+              },
+              data: [70, 215, 155, 134, 45, 170, 50]
+            },
+            {
+              name: '进店人数',
+              type: 'line',
+              smooth: true,
+              lineStyle: {
+                width: 0
+              },
+              showSymbol: false,
+              areaStyle: {
+                opacity: 0.8,
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: 'rgb(55, 162, 255)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgb(116, 21, 219)'
+                  }
+                ])
+              },
+              emphasis: {
+                focus: 'series'
+              },
+              data: [45, 100, 70, 40, 20, 80, 25]
+            },
+            {
+              name: '消费人数',
+              type: 'line',
+              smooth: true,
+              lineStyle: {
+                width: 0
+              },
+              showSymbol: false,
+              areaStyle: {
+                opacity: 0.8,
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: 'rgb(255, 0, 135)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgb(135, 0, 157)'
+                  }
+                ])
+              },
+              emphasis: {
+                focus: 'series'
+              },
+              data: [20, 50, 35, 20, 10, 40, 12]
+            }
+          ]
+        };
+        myChart.setOption(option);
+
+        // Chart 2 initialization
+        this.chartDom2 = document.getElementById('chart2');
+        this.myChart2 = echarts.init(this.chartDom2);
+        var option2 = {
+
+          title: {
+            text: '年龄分布',  // 你想要显示的标题文本
+            left: 'center',   // 标题水平对齐方式，默认是 'left'，你也可以选择 'center' 或 'right'
+            top: '26%',      // 标题垂直对齐方式，默认是 'top'，你也可以选择 'middle' 或 'bottom'
+            textStyle: {
+              color: '#606266',   // 标题颜色
+              fontSize: 12    // 标题字体大小
+            }
+          },
+
+          tooltip: {
+            trigger: 'item'
+          },
+          legend: {
+            top: '5%',
+            left: 'center',
+            selectedMode: false,
+            textStyle: {
+              fontSize: 12  // 设置字体大小为16
+            },
+            itemWidth: 5,   // 设置颜色块宽度为25
+            itemHeight: 12   // 设置颜色块高度为14
+          },
+
+
+          series: [
+            {
+              name: '年龄分布',
+              type: 'pie',
+              radius: ['30%', '80%'],
+              center: ['50%', '85%'], // Adjust the vertical center
+              startAngle: 180, // Set the start angle     // Set the end angle
+              label: {
+                show: false,
+                formatter(param) {
+                  return param.name + ' (' + param.percent * 2 + '%)';
+                }
+              },
+              data: [
+                { value: 20, name: '<15' },
+                { value: 40, name: '15-40' },
+                { value: 15, name: '40-60' },
+                { value: 25, name: '>60' },
+                {
+                  value: 100,
+                  itemStyle: {
+                    color: 'none',
+                    decal: {
+                      symbol: 'none'
+                    }
+                  },
+                  label: {
+                    show: true
+                  }
+                }
+              ]
+            }
+          ]
+        };
+        this.myChart2.setOption(option2);
+      },
+      methods: {
+      }
+    });
+  </script>
+</body>
+
+</html>
